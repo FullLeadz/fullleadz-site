@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Leadz | Ton pipeline B2B sur pilote automatique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #2563EB;
+            --blue-light: #3B82F6;
+            --blue-glow: rgba(37, 99, 235, 0.15);
+            --blue-subtle: rgba(37, 99, 235, 0.06);
+            --bg: #F7F8FA;
+            --bg-alt: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F0F2F5;
+            --border: rgba(0,0,0,0.06);
+            --text: #3F3F46;
+            --text-dim: #71717A;
+            --text-heading: #18181B;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 16px 0;
+            background: rgba(247, 248, 250, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 22px; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
+        .logo span { color: var(--blue); }
+        .nav-cta {
+            background: var(--blue); color: var(--white); padding: 10px 24px;
+            border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.2s;
+        }
+        .nav-cta:hover { background: var(--blue-light); box-shadow: 0 0 24px var(--blue-glow); }
+
+        section { padding: 100px 24px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* HERO */
+        .hero { padding: 160px 24px 100px; text-align: center; position: relative; background: var(--bg); }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 600px;
+            background: radial-gradient(ellipse, var(--blue-glow) 0%, transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+        .hero .container { position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px;
+            background: var(--blue-subtle); border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 100px; font-size: 13px; font-weight: 500; color: var(--blue); margin-bottom: 32px;
+        }
+        .hero-badge::before {
+            content: ''; width: 6px; height: 6px; background: var(--blue);
+            border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        h1 {
+            font-size: clamp(36px, 5.5vw, 64px); font-weight: 900; line-height: 1.08;
+            letter-spacing: -2px; color: var(--text-heading); margin-bottom: 24px;
+        }
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--blue), #818CF8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-sub {
+            font-size: clamp(17px, 2vw, 20px); color: var(--text-dim);
+            max-width: 620px; margin: 0 auto 40px; line-height: 1.7;
+        }
+        .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--blue); color: var(--white); padding: 16px 32px;
+            border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px;
+            transition: all 0.25s; border: none; cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--blue-light); box-shadow: 0 0 40px var(--blue-glow); transform: translateY(-1px); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: transparent; color: var(--text); padding: 16px 32px;
+            border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px;
+            border: 1px solid var(--border); transition: all 0.25s;
+        }
+        .btn-secondary:hover { border-color: rgba(0,0,0,0.12); background: rgba(0,0,0,0.02); }
+
+        /* SCROLLING TRUST BAR */
+        .trust-bar {
+            padding: 48px 0; text-align: center;
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .trust-bar p {
+            font-size: 13px; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-dim); margin-bottom: 32px; padding: 0 24px;
+        }
+        .logo-scroll-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+        .logo-scroll-track {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            width: max-content;
+            animation: scroll-logos 25s linear infinite;
+        }
+        @keyframes scroll-logos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-25%); }
+        }
+        .logo-scroll-track:hover { animation-play-state: paused; }
+        .client-logo-svg {
+            flex-shrink: 0;
+            height: 32px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        .client-logo-svg:hover { opacity: 0.8; }
+        .client-logo {
+            flex-shrink: 0;
+            height: 32px;
+            opacity: 1;
+            transition: all 0.3s;
+            object-fit: contain;
+        }
+        .client-logo:hover { opacity: 0.8; }
+
+        /* STATS BAR */
+        .stats-bar {
+            padding: 48px 24px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 36px; font-weight: 900; color: var(--blue);
+            letter-spacing: -1px; line-height: 1;
+        }
+        .stat-label {
+            font-size: 13px; color: var(--text-dim); margin-top: 6px;
+            text-transform: uppercase; letter-spacing: 1px; font-weight: 500;
+        }
+
+        /* PROBLEM */
+        .problem { background: var(--bg-alt); }
+        .problem .container { text-align: center; }
+        .section-label {
+            font-size: 13px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--blue); margin-bottom: 16px;
+        }
+        h2 {
+            font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--text-heading);
+            letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 20px;
+        }
+        .section-desc { font-size: 17px; color: var(--text-dim); max-width: 640px; line-height: 1.7; }
+        .section-desc.centered { margin: 0 auto; }
+        .problem-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-top: 48px; text-align: left;
+        }
+        .problem-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 14px; padding: 32px; transition: all 0.25s;
+        }
+        .problem-card:hover { border-color: rgba(0,0,0,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+        .problem-icon {
+            width: 44px; height: 44px; background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.12); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 20px;
+        }
+        .problem-card h3 { font-size: 17px; font-weight: 700; color: var(--text-heading); margin-bottom: 10px; }
+        .problem-card p { font-size: 15px; color: var(--text-dim); line-height: 1.6; }
+
+        /* SOLUTION */
+        .solution { background: var(--bg); }
+        .solution-header { text-align: center; margin-bottom: 64px; }
+        .solution-header .section-desc { margin: 0 auto; }
+        .method-steps {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1px; background: var(--border); border-radius: 16px; overflow: hidden;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        }
+        .method-step { background: var(--bg-card); padding: 40px 32px; }
+        .step-number { font-size: 48px; font-weight: 900; color: var(--blue); opacity: 0.25; line-height: 1; margin-bottom: 16px; }
+        .method-step h3 { font-size: 18px; font-weight: 700; color: var(--text-heading); margin-bottom: 12px; }
+        .method-step p { font-size: 15px; color: var(--text-dim); line-height: 1.6; }
+
+        /* OFFERS */
+        .offers-section { background: var(--bg-alt); }
+        .offers-header { text-align: center; margin-bottom: 56px; }
+        .offers-header .section-desc { margin: 0 auto; }
+        .offers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+        .offer-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 40px; position: relative; transition: all 0.3s;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        .offer-card:hover { border-color: rgba(0,0,0,0.1); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+        .offer-card.popular {
+            border-color: rgba(37, 99, 235, 0.25);
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.03) 0%, var(--bg-card) 40%);
+        }
+        .popular-tag {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--blue); color: var(--white); font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; padding: 4px 16px; border-radius: 100px;
+        }
+        .offer-name { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--blue); margin-bottom: 8px; }
+        .offer-title { font-size: 24px; font-weight: 800; color: var(--text-heading); margin-bottom: 8px; }
+        .offer-tagline { font-size: 15px; color: var(--text-dim); margin-bottom: 24px; font-style: italic; }
+        .offer-price { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+        .price-setup { font-size: 36px; font-weight: 900; color: var(--text-heading); letter-spacing: -1px; }
+        .price-setup span { font-size: 16px; font-weight: 500; color: var(--text-dim); }
+        .price-monthly { font-size: 15px; color: var(--text-dim); margin-top: 4px; }
+        .price-monthly strong { color: var(--text-heading); font-weight: 700; }
+        .offer-engagement { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
+        .offer-features { list-style: none; margin-bottom: 32px; }
+        .offer-features li {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 8px 0; font-size: 14px; color: var(--text);
+        }
+        .offer-features li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+        .offer-cta {
+            display: block; text-align: center; padding: 14px; border-radius: 10px;
+            text-decoration: none; font-weight: 700; font-size: 15px; transition: all 0.25s;
+        }
+        .offer-cta.primary { background: var(--blue); color: var(--white); }
+        .offer-cta.primary:hover { background: var(--blue-light); box-shadow: 0 0 32px var(--blue-glow); }
+        .offer-cta.secondary { background: transparent; color: var(--text-heading); border: 1px solid var(--border); }
+        .offer-cta.secondary:hover { border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.02); }
+
+        /* GUARANTEE */
+        .guarantee-section { padding: 80px 24px; background: var(--bg-alt); }
+        .guarantee-box {
+            max-width: 800px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(129, 140, 248, 0.04) 100%);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            border-radius: 16px; padding: 48px; text-align: center;
+        }
+        .guarantee-icon { font-size: 48px; margin-bottom: 20px; }
+        .guarantee-box h2 { font-size: 28px; margin-bottom: 16px; }
+        .guarantee-box p { font-size: 17px; color: var(--text-dim); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+        .guarantee-box strong { color: var(--blue); }
+
+        /* PROCESS */
+        .process-section { background: var(--bg); }
+        .process-header { text-align: center; margin-bottom: 64px; }
+        .process-header .section-desc { margin: 0 auto; }
+        .timeline { max-width: 720px; margin: 0 auto; position: relative; }
+        .timeline::before {
+            content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(180deg, var(--blue), rgba(37,99,235,0.1));
+        }
+        .timeline-item { position: relative; padding-left: 72px; padding-bottom: 48px; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute; left: 13px; top: 4px; width: 24px; height: 24px;
+            background: var(--bg); border: 2px solid var(--blue); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .timeline-dot::after { content: ''; width: 8px; height: 8px; background: var(--blue); border-radius: 50%; }
+        .timeline-phase { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--blue); margin-bottom: 6px; }
+        .timeline-item h3 { font-size: 20px; font-weight: 700; color: var(--text-heading); margin-bottom: 8px; }
+        .timeline-item p { font-size: 15px; color: var(--text-dim); line-height: 1.7; }
+        .timeline-duration {
+            display: inline-flex; padding: 2px 10px; background: var(--blue-subtle);
+            border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--blue); margin-top: 10px;
+        }
+
+        /* FIT */
+        .fit-section { background: var(--bg-alt); }
+        .fit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 960px; margin: 48px auto 0; }
+        .fit-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 36px; }
+        .fit-card h3 { font-size: 18px; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; }
+        .fit-card ul { list-style: none; }
+        .fit-card li {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 6px 0; font-size: 15px; color: var(--text-dim); line-height: 1.5;
+        }
+        .fit-card li strong { color: var(--text); font-weight: 600; }
+        .fit-card.yes li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+        .fit-card.no li::before { content: '✕'; color: #EF4444; font-weight: 700; flex-shrink: 0; }
+
+        /* FAQ */
+        .faq-section { background: var(--bg); }
+        .faq-header { text-align: center; margin-bottom: 48px; }
+        .faq-list { max-width: 720px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-question {
+            width: 100%; background: none; border: none; padding: 24px 0;
+            display: flex; justify-content: space-between; align-items: center; cursor: pointer; text-align: left;
+        }
+        .faq-question span { font-size: 16px; font-weight: 600; color: var(--text-heading); }
+        .faq-question .faq-icon { font-size: 20px; color: var(--text-dim); transition: transform 0.3s; flex-shrink: 0; margin-left: 16px; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-answer p { padding-bottom: 24px; font-size: 15px; color: var(--text-dim); line-height: 1.7; }
+
+        /* FINAL CTA */
+        .final-cta { text-align: center; position: relative; padding: 120px 24px; background: var(--bg-alt); }
+        .final-cta::before {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 500px;
+            background: radial-gradient(ellipse, var(--blue-glow) 0%, transparent 70%); pointer-events: none;
+        }
+        .final-cta .container { position: relative; z-index: 1; }
+        .final-cta h2 { margin-bottom: 16px; }
+        .final-cta p { font-size: 17px; color: var(--text-dim); max-width: 500px; margin: 0 auto 32px; }
+
+        footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: center; background: var(--bg); }
+        footer p { font-size: 13px; color: var(--text-dim); }
+
+        @media (max-width: 768px) {
+            .method-steps { grid-template-columns: 1fr; }
+            .offers-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .fit-grid { grid-template-columns: 1fr; }
+            section { padding: 72px 20px; }
+            .hero { padding: 130px 20px 72px; }
+            .offer-card { padding: 32px 24px; }
+            .stats-grid { gap: 40px; }
+            .stat-number { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="logo">Full <span>Leadz</span></a>
+        <a href="https://cal.com/dorian-jamot/decouverte-full-leadz" target="_blank" class="nav-cta">Réservez un appel</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-badge">Prospection B2B basée sur les signaux d'intention</div>
+        <h1>Des décideurs cherchent ta solution <span class="highlight">en ce moment.</span><br>On les contacte avant tes concurrents.</h1>
+        <p class="hero-sub">Tu te concentres sur la production et tes clients actuels.<br>Je m'occupe de remplir ton agenda grâce à un système d'acquisition prédictible.</p>
+        <div class="hero-ctas">
+            <a href="https://cal.com/dorian-jamot/decouverte-full-leadz" target="_blank" class="btn-primary">Réservez un appel →</a>
+            <a href="#methode" class="btn-secondary">Découvrir la méthode</a>
+        </div>
+    </div>
+</section>
+
+<!-- SCROLLING LOGO BAR -->
+<div class="trust-bar">
+    <p>Ils m'ont déjà fait confiance</p>
+    <div class="logo-scroll-wrapper">
+        <div class="logo-scroll-track">
+            <!-- Set 1 -->
+            <img class="client-logo" src="dealt.png" alt="Dealt" height="32">
+            <img class="client-logo" src="recept-ai.png" alt="recept.ai" height="28">
+            <img class="client-logo" src="gymlib.png" alt="Gymlib" height="32">
+            <img class="client-logo" src="assessfirst.png" alt="AssessFirst" height="28">
+            <img class="client-logo" src="talentia.png" alt="TalenTIA" height="28">
+            <img class="client-logo" src="selego.jpeg" alt="selego" height="32">
+            <img class="client-logo" src="tessan.svg" alt="Tessan" height="28">
+            <!-- Set 2 (duplicate for seamless loop) -->
+            <img class="client-logo" src="dealt.png" alt="Dealt" height="32">
+            <img class="client-logo" src="recept-ai.png" alt="recept.ai" height="28">
+            <img class="client-logo" src="gymlib.png" alt="Gymlib" height="32">
+            <img class="client-logo" src="assessfirst.png" alt="AssessFirst" height="28">
+            <img class="client-logo" src="talentia.png" alt="TalenTIA" height="28">
+            <img class="client-logo" src="selego.jpeg" alt="selego" height="32">
+            <img class="client-logo" src="tessan.svg" alt="Tessan" height="28">
+            <!-- Set 3 (extra to fill wide screens) -->
+            <img class="client-logo" src="dealt.png" alt="Dealt" height="32">
+            <img class="client-logo" src="recept-ai.png" alt="recept.ai" height="28">
+            <img class="client-logo" src="gymlib.png" alt="Gymlib" height="32">
+            <img class="client-logo" src="assessfirst.png" alt="AssessFirst" height="28">
+            <img class="client-logo" src="talentia.png" alt="TalenTIA" height="28">
+            <img class="client-logo" src="selego.jpeg" alt="selego" height="32">
+            <img class="client-logo" src="tessan.svg" alt="Tessan" height="28">
+            <!-- Set 4 (extra safety) -->
+            <img class="client-logo" src="dealt.png" alt="Dealt" height="32">
+            <img class="client-logo" src="recept-ai.png" alt="recept.ai" height="28">
+            <img class="client-logo" src="gymlib.png" alt="Gymlib" height="32">
+            <img class="client-logo" src="assessfirst.png" alt="AssessFirst" height="28">
+            <img class="client-logo" src="talentia.png" alt="TalenTIA" height="28">
+            <img class="client-logo" src="selego.jpeg" alt="selego" height="32">
+            <img class="client-logo" src="tessan.svg" alt="Tessan" height="28">
+        </div>
+    </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar fade-in">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">+5 ans</div>
+                <div class="stat-label">d'expertise Growth</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">+15</div>
+                <div class="stat-label">Entreprises accompagnées</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">+500</div>
+                <div class="stat-label">RDV générés</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="problem fade-in" id="probleme">
+    <div class="container">
+        <div class="section-label">Le problème</div>
+        <h2>La prospection classique est morte.</h2>
+        <p class="section-desc centered">Les décideurs B2B reçoivent des dizaines de messages génériques chaque jour. Ils ont appris à les ignorer. Continuer à envoyer des campagnes "spray and pray", c'est brûler du budget et ta réputation.</p>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">📉</div>
+                <h3>Taux de réponse en chute libre</h3>
+                <p>Les séquences cold classiques plafonnent sous 2% de réponse. Les boîtes mail sont saturées, les filtres anti-spam de plus en plus agressifs.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🎯</div>
+                <h3>Zéro personnalisation réelle</h3>
+                <p>Tu changes le {prénom} et le {nom_entreprise} et tu appelles ça de la personnalisation ? Tes prospects voient clair dans le jeu.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">⏰</div>
+                <h3>Pas le temps de prospecter</h3>
+                <p>Tu gères tes clients, ta production, ton admin. La prospection passe toujours en dernier. Jusqu'au trou dans le pipe.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="solution fade-in" id="methode">
+    <div class="container">
+        <div class="solution-header">
+            <div class="section-label">La méthode Full Leadz</div>
+            <h2>On ne prospecte pas au hasard.<br>On intercepte les signaux.</h2>
+            <p class="section-desc">On capte les signaux d'intention de tes prospects pour leur adresser le bon message, au bon moment, sur le bon canal.</p>
+        </div>
+        <div class="method-steps">
+            <div class="method-step">
+                <div class="step-number">01</div>
+                <h3>Capter les signaux</h3>
+                <p>On identifie les événements qui indiquent qu'un prospect est en phase d'achat. Par exemple une levée de fonds, un engagement LinkedIn, un recrutement sur un poste clé ou l'adoption d'une techno concurrente.</p>
+            </div>
+            <div class="method-step">
+                <div class="step-number">02</div>
+                <h3>Qualifier et enrichir</h3>
+                <p>Chaque signal déclenche un workflow automatique. Enrichissement des données, scoring, segmentation. Seuls les prospects les plus pertinents entrent dans tes campagnes.</p>
+            </div>
+            <div class="method-step">
+                <div class="step-number">03</div>
+                <h3>Engager au bon moment</h3>
+                <p>Des séquences multicanales ultra ciblées, déclenchées par les signaux. Chaque message est contextualisé sur email et LinkedIn. Résultat : des réponses, pas du silence.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="offers-section fade-in" id="offres">
+    <div class="container">
+        <div class="offers-header">
+            <div class="section-label">Les offres</div>
+            <h2>Deux formules. Un seul objectif :<br>remplir ton agenda de rendez-vous.</h2>
+            <p class="section-desc">Tu te concentres sur la production et tes clients actuels.<br>Je m'occupe de t'en apporter des nouveaux.</p>
+        </div>
+        <div class="offers-grid">
+            <div class="offer-card popular">
+                <div class="popular-tag">Le plus choisi</div>
+                <div class="offer-name">Système</div>
+                <div class="offer-title">Le Build & Run</div>
+                <p class="offer-tagline">On construit, on lance, on optimise, et je te forme.</p>
+                <div class="offer-price">
+                    <div class="price-setup">2 490€ <span>setup</span></div>
+                    <div class="price-monthly">puis <strong>1 490€</strong>/mois</div>
+                    <div class="offer-engagement">2 mois minimum · Mois 3 & 4 selon ta volonté</div>
+                </div>
+                <ul class="offer-features">
+                    <li>Audit ICP + mapping des signaux d'intention</li>
+                    <li>Setup technique complet (délivrabilité, Clay/n8n, outil d'envoi)</li>
+                    <li>Séquences multicanales copywritées par signal (email + LinkedIn)</li>
+                    <li>CRM taggé + dashboard de reporting</li>
+                    <li>Pilotage et optimisation continue des campagnes</li>
+                    <li>1 session de formation hebdo (transfert de compétences)</li>
+                    <li>Notion complet avec documentation du système</li>
+                    <li>Slack dédié pour les questions async</li>
+                </ul>
+                <a href="https://cal.com/dorian-jamot/decouverte-full-leadz" target="_blank" class="offer-cta primary">Demander un rendez-vous →</a>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-name">Scale</div>
+                <div class="offer-title">Le Multicanal Complet</div>
+                <p class="offer-tagline">On active tous les canaux à la fois, outbound et paid.</p>
+                <div class="offer-price">
+                    <div class="price-setup">4 290€ <span>setup</span></div>
+                    <div class="price-monthly">puis <strong>2 490€</strong>/mois</div>
+                    <div class="offer-engagement">2 mois minimum · Mois 3 & 4 selon ta volonté</div>
+                </div>
+                <ul class="offer-features">
+                    <li>Tout le Système inclus</li>
+                    <li>Activation LinkedIn Ads ou Meta Ads (retargeting signaux chauds)</li>
+                    <li>A/B testing systématique des séquences</li>
+                    <li>Reporting avancé + analyse des signaux les plus performants</li>
+                    <li>2 points stratégiques par mois</li>
+                    <li>Réponse prioritaire sous 4h sur Slack</li>
+                </ul>
+                <a href="https://cal.com/dorian-jamot/decouverte-full-leadz" target="_blank" class="offer-cta secondary">Demander un rendez-vous →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="guarantee-section fade-in">
+    <div class="guarantee-box">
+        <div class="guarantee-icon">🛡️</div>
+        <h2>Garantie 10 rendez-vous</h2>
+        <p>Si à la fin des 2 premiers mois tu n'as pas obtenu <strong>10 rendez-vous qualifiés</strong>, je continue à travailler gratuitement jusqu'à ce qu'on y arrive. Zéro risque de ton côté.</p>
+    </div>
+</div>
+
+<section class="process-section fade-in" id="process">
+    <div class="container">
+        <div class="process-header">
+            <div class="section-label">Le programme</div>
+            <h2>Comment ça se passe concrètement ?</h2>
+            <p class="section-desc">Un process clair, étape par étape. Tu sais exactement ce qui se passe et quand.</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-phase">Phase 0 · Avant de commencer</div>
+                <h3>Un premier échange de 30 min</h3>
+                <p>J'analyse ton process actuel et j'identifie les signaux d'intention les plus pertinents pour ton marché. Tu repars avec de la valeur même si tu ne signes pas.</p>
+                <span class="timeline-duration">Gratuit · 30 min</span>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-phase">Phase 1 · Diagnostic et Architecture</div>
+                <h3>On cartographie ton marché</h3>
+                <p>Audit complet de l'existant, définition de l'ICP, mapping des signaux d'intention, recommandation du stack technique. On ne lance rien avant d'avoir une vision chirurgicale.</p>
+                <span class="timeline-duration">2 semaines</span>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-phase">Phase 2 · Build du système</div>
+                <h3>On construit la machine</h3>
+                <p>Setup technique complet, workflows d'enrichissement automatique, listes segmentées par signal, séquences copywritées, CRM taggé, reporting. Tout est documenté dans un Notion partagé.</p>
+                <span class="timeline-duration">4 à 6 semaines</span>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-phase">Phase 3 · Run et optimisation</div>
+                <h3>On fait tourner et on optimise</h3>
+                <p>Pilotage des campagnes, analyse des signaux qui convertissent, ajustement des messages. En parallèle, transfert de compétences progressif pour que ton équipe devienne autonome.</p>
+                <span class="timeline-duration">Mensuel</span>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-phase">Phase 4 · Autonomie assistée</div>
+                <h3>Tu voles de tes propres ailes</h3>
+                <p>Tu possèdes ton système, tu le comprends, tu peux l'adapter seul. Je reste disponible en mode conseil avec un point mensuel, un accès Slack async et une veille continue sur le stack et les signaux.</p>
+                <span class="timeline-duration">Optionnel · Mensuel</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="fit-section fade-in">
+    <div class="container">
+        <div class="offers-header">
+            <div class="section-label">Pour qui ?</div>
+            <h2>Full Leadz est fait pour toi si...</h2>
+        </div>
+        <div class="fit-grid">
+            <div class="fit-card yes">
+                <h3>Idéal pour toi</h3>
+                <ul>
+                    <li>Tu es une startup ou un indépendant B2B avec un produit ou service qui se vend déjà</li>
+                    <li>Tu gères la production et tu n'as pas le temps de prospecter toi-même</li>
+                    <li>Tu veux un système qui génère des leads en continu, pas du one-shot</li>
+                    <li>Tu es prêt à investir pour structurer ta croissance commerciale</li>
+                    <li>Tu veux comprendre le système et devenir autonome à terme</li>
+                    <li>Tu as déjà un CRM ou tu es prêt à en mettre un en place</li>
+                    <li>Tu vends en B2B avec un panier moyen suffisant pour justifier de la prospection</li>
+                </ul>
+            </div>
+            <div class="fit-card no">
+                <h3>Pas pour toi</h3>
+                <ul>
+                    <li>Tu n'as pas encore validé ton product-market fit</li>
+                    <li>Tu cherches juste "quelqu'un qui envoie des emails"</li>
+                    <li>Tu veux des résultats sans aucune implication de ton côté</li>
+                    <li>Tu n'as pas de budget dédié à l'acquisition</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section fade-in" id="faq">
+    <div class="container">
+        <div class="faq-header">
+            <div class="section-label">FAQ</div>
+            <h2>Questions fréquentes</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>C'est quoi un "signal d'intention" exactement ?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>C'est un événement observable qui indique qu'un prospect est potentiellement en phase d'achat. Par exemple une levée de fonds, un recrutement sur un poste clé, l'adoption d'une technologie concurrente, un changement de poste d'un décideur ou un engagement sur du contenu LinkedIn lié à ton sujet. Plutôt que de contacter tout le monde, on contacte seulement ceux qui montrent des signes d'intérêt, au bon moment.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Combien de temps avant les premiers résultats ?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Les premières campagnes sont lancées entre la semaine 3 et la semaine 6, selon la complexité du setup. Les premières réponses arrivent généralement dans les jours qui suivent le lancement. L'objectif est 10 rendez-vous qualifiés sur les 2 premiers mois.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Qu'est-ce qui se passe si je veux arrêter après 2 mois ?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Tu gardes tout. Le système, les workflows, le Notion documenté, les accès aux outils. Tout t'appartient. C'est l'avantage du modèle : tu ne loues pas un service, tu construis un actif. Les mois 3 et 4 sont là pour optimiser et te rendre complètement autonome, mais c'est ta décision.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Quels outils sont utilisés ?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Le stack est adapté à chaque client, mais les briques classiques incluent Clay ou n8n pour l'automatisation et l'enrichissement, Instantly ou Lemlist pour l'envoi, LinkedIn Sales Navigator et un CRM comme Pipedrive ou HubSpot selon ce que tu utilises déjà. Les coûts des outils sont à ta charge mais restent raisonnables, souvent entre 200 et 400€ par mois au total.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Je n'ai pas d'équipe commerciale, c'est un problème ?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Non, la plupart de mes clients sont des fondateurs qui gèrent eux-mêmes la partie commerciale. Le système amène les rendez-vous, toi tu closes. Il faut juste être réactif quand un lead chaud arrive.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta" id="booking">
+    <div class="container">
+        <div class="section-label">Prêt à démarrer ?</div>
+        <h2>On en discute pendant 30 min ?</h2>
+        <p>J'analyse ton process actuel, j'identifie tes meilleurs signaux d'intention, et tu repars avec un plan d'action. Même si tu ne signes pas.</p>
+        <a href="https://cal.com/dorian-jamot/decouverte-full-leadz" target="_blank" class="btn-primary">Réserver mon créneau →</a>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>Full <span style="color: var(--blue);">Leadz</span> · +5 ans d'expertise Growth · Dorian Jamot</p>
+    </div>
+</footer>
+
+<script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.parentElement;
+            const answer = item.querySelector('.faq-answer');
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('open');
+                i.querySelector('.faq-answer').style.maxHeight = null;
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Smooth scroll (only for internal anchors)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
