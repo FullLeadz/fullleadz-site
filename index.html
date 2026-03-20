@@ -285,7 +285,7 @@
         .offer-cta.secondary:hover { border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.02); }
 
         /* GUARANTEE */
-        .guarantee-section { padding: 80px 24px; background: var(--bg-alt); }
+        .guarantee-section { padding: 0 24px 80px; background: var(--bg-alt); }
         .guarantee-box {
             max-width: 800px; margin: 0 auto;
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(129, 140, 248, 0.04) 100%);
@@ -373,8 +373,17 @@
             .hero { padding: 130px 20px 72px; }
             .hero::before, .final-cta::before { width: 100%; }
             .offer-card { padding: 32px 24px; }
-            .stats-grid { gap: 40px; }
+            .stats-bar { padding: 40px 20px; }
+            .stats-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px 24px;
+            }
+            .stats-grid .stat-item:first-child {
+                grid-column: 1 / -1;
+            }
             .stat-number { font-size: 28px; }
+            .guarantee-section { padding: 0 24px 60px; }
             .nav-inner { padding: 0 16px; }
         }
     </style>
