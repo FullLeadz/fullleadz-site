@@ -35,7 +35,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
@@ -371,9 +371,11 @@
             .fit-grid { grid-template-columns: 1fr; }
             section { padding: 72px 20px; }
             .hero { padding: 130px 20px 72px; }
+            .hero::before, .final-cta::before { width: 100%; }
             .offer-card { padding: 32px 24px; }
             .stats-grid { gap: 40px; }
             .stat-number { font-size: 28px; }
+            .nav-inner { padding: 0 16px; }
         }
     </style>
 </head>
@@ -385,7 +387,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav>
     <div class="nav-inner">
-        <a href="#" class="logo">Full <span>Leadz</span></a>
+        <a href="#" class="logo"><img src="logo-site-fullleadz.png" alt="FullLeadz" height="36"></a>
         <a href="https://cal.com/dorian-jamot/decouverte-full-leadz" target="_blank" class="nav-cta">Réservez un appel</a>
     </div>
 </nav>
